@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["dom", "dom.iterable", "ES2022"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "baseUrl": ".",
+    "paths": {
+      "@globetrotter/ui": ["packages/ui/src/index.ts"],
+      "@globetrotter/ui/*": ["packages/ui/src/*"],
+      "@globetrotter/core": ["packages/core/src/index.ts"],
+      "@globetrotter/core/*": ["packages/core/src/*"],
+      "@globetrotter/types": ["packages/types/src/index.ts"],
+      "@globetrotter/types/*": ["packages/types/src/*"],
+      "@globetrotter/config": ["packages/config/src/index.ts"],
+      "@globetrotter/config/*": ["packages/config/src/*"]
+    }
+  },
+  "include": ["**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules", "dist", "build", ".next"]
+}

@@ -1,0 +1,303 @@
+// GlobeTrotter - Simplified Database Schema
+// Development: SQLite | Production: PostgreSQL
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================
+// USER & AUTHENTICATION
+// ============================================
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  passwordHash  String
+  firstName     String
+  lastName      String
+  avatarUrl     String?
+  phone         String?
+  nationality   String?
+  isVerified    Boolean   @default(false)
+  isActive      Boolean   @default(true)
+  lastLoginAt   DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  // Gamification
+  xp            Int       @default(0)
+  level         Int       @default(1)
+  streak        Int       @default(0)
+
+  // Relations
+  profile       UserProfile?
+  preferences   UserPreferences?
+  trips         Trip[]
+  documents     Document[]
+  notifications Notification[]
+  badges        UserBadge[]
+  achievements  UserAchievement[]
+
+  @@index([email])
+}
+
+model UserProfile {
+  id             String      @id @default(cuid())
+  userId         String      @unique
+  bio            String?
+  currentTitle   String      @default("Novice Explorer")
+  totalTrips     Int         @default(0)
+  totalCountries Int         @default(0)
+  totalDistance  Float       @default(0)
+  theme          String      @default("default")
+  accentColor    String      @default("#4F46E5")
+  
+  user           User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  badges         UserBadge[]
+  
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+}
+
+model UserPreferences {
+  id                String   @id @default(cuid())
+  userId            String   @unique
+  currency          String   @default("USD")
+  language          String   @default("en")
+  distanceUnit      String   @default("km")
+  temperatureUnit   String   @default("celsius")
+  travelStyle       String   @default("mid-range")
+  pushEnabled       Boolean  @default(true)
+  emailEnabled      Boolean  @default(true)
+  flightAlerts      Boolean  @default(true)
+  priceAlerts       Boolean  @default(true)
+  weatherAlerts     Boolean  @default(true)
+  tripReminders     Boolean  @default(true)
+  
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+}
+
+// ============================================
+// TRIPS
+// ============================================
+
+model Trip {
+  id             String        @id @default(cuid())
+  userId         String
+  name           String
+  description    String?
+  coverImage     String?
+  status         String        @default("draft")
+  visibility     String        @default("private")
+  startDate      DateTime
+  endDate        DateTime
+  timezone       String        @default("UTC")
+  readinessScore Int           @default(0)
+  totalBudget    Float         @default(0)
+  totalSpent     Float         @default(0)
+  currency       String        @default("USD")
+  
+  user           User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  destinations   Destination[]
+  budget         Budget?
+  expenses       Expense[]
+  checklists     Checklist[]
+  
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  @@index([userId])
+  @@index([status])
+}
+
+model Destination {
+  id            String    @id @default(cuid())
+  tripId        String
+  name          String
+  country       String
+  countryCode   String?
+  city          String
+  latitude      Float?
+  longitude     Float?
+  timezone      String?
+  arrivalDate   DateTime?
+  departureDate DateTime?
+  orderIndex    Int       @default(0)
+  
+  trip          Trip      @relation(fields: [tripId], references: [id], onDelete: Cascade)
+  
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model Budget {
+  id           String   @id @default(cuid())
+  tripId       String   @unique
+  totalBudget  Float    @default(0)
+  currency     String   @default("USD")
+  
+  trip         Trip     @relation(fields: [tripId], references: [id], onDelete: Cascade)
+  
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Expense {
+  id          String   @id @default(cuid())
+  tripId      String
+  category    String
+  description String
+  amount      Float
+  currency    String   @default("USD")
+  date        DateTime @default(now())
+  
+  trip        Trip     @relation(fields: [tripId], references: [id], onDelete: Cascade)
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Checklist {
+  id        String          @id @default(cuid())
+  tripId    String
+  name      String
+  type      String          @default("general")
+  
+  trip      Trip            @relation(fields: [tripId], references: [id], onDelete: Cascade)
+  items     ChecklistItem[]
+  
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
+}
+
+model ChecklistItem {
+  id          String    @id @default(cuid())
+  checklistId String
+  text        String
+  isCompleted Boolean   @default(false)
+  priority    Int       @default(0)
+  orderIndex  Int       @default(0)
+  
+  checklist   Checklist @relation(fields: [checklistId], references: [id], onDelete: Cascade)
+  
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+// ============================================
+// DOCUMENTS
+// ============================================
+
+model Document {
+  id             String    @id @default(cuid())
+  userId         String
+  type           String
+  name           String
+  documentNumber String?
+  issueDate      DateTime?
+  expiryDate     DateTime?
+  issuingCountry String?
+  fileUrl        String?
+  isVerified     Boolean   @default(false)
+  
+  user           User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+}
+
+// ============================================
+// NOTIFICATIONS
+// ============================================
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  type      String
+  title     String
+  message   String
+  data      String?
+  isRead    Boolean  @default(false)
+  
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+}
+
+// ============================================
+// GAMIFICATION
+// ============================================
+
+model Badge {
+  id          String      @id @default(cuid())
+  name        String      @unique
+  description String
+  category    String
+  iconUrl     String
+  color       String?
+  requirement String
+  xpReward    Int         @default(100)
+  rarity      String      @default("common")
+  isActive    Boolean     @default(true)
+  
+  userBadges  UserBadge[]
+  
+  createdAt   DateTime    @default(now())
+}
+
+model UserBadge {
+  id        String      @id @default(cuid())
+  profileId String
+  badgeId   String
+  userId    String
+  awardedAt DateTime    @default(now())
+  
+  profile   UserProfile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  badge     Badge       @relation(fields: [badgeId], references: [id], onDelete: Cascade)
+  user      User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@unique([profileId, badgeId])
+}
+
+model Achievement {
+  id              String            @id @default(cuid())
+  name            String            @unique
+  description     String
+  category        String
+  iconUrl         String
+  color           String?
+  targetValue     Int
+  unit            String
+  xpReward        Int               @default(100)
+  rarity          String            @default("common")
+  isActive        Boolean           @default(true)
+  
+  userAchievements UserAchievement[]
+  
+  createdAt       DateTime          @default(now())
+}
+
+model UserAchievement {
+  id            String      @id @default(cuid())
+  userId        String
+  achievementId String
+  progress      Int         @default(0)
+  isCompleted   Boolean     @default(false)
+  earnedAt      DateTime?
+  
+  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  achievement   Achievement @relation(fields: [achievementId], references: [id], onDelete: Cascade)
+  
+  @@unique([userId, achievementId])
+}

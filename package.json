@@ -1,0 +1,57 @@
+{
+  "name": "globetrotter",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Ultimate Travel Companion Platform - Web & Mobile",
+  "author": "GlobeTrotter Team",
+  "license": "MIT",
+  "workspaces": [
+    "apps/*",
+    "packages/*",
+    "services/*"
+  ],
+  "scripts": {
+    "dev": "turbo run dev",
+    "dev:web": "turbo run dev --filter=@globetrotter/web",
+    "dev:mobile": "turbo run dev --filter=@globetrotter/mobile",
+    "dev:api": "turbo run dev --filter=@globetrotter/api",
+    "build": "turbo run build",
+    "build:web": "turbo run build --filter=@globetrotter/web",
+    "build:mobile": "turbo run build --filter=@globetrotter/mobile",
+    "build:api": "turbo run build --filter=@globetrotter/api",
+    "test": "turbo run test",
+    "test:coverage": "turbo run test:coverage",
+    "lint": "turbo run lint",
+    "lint:fix": "turbo run lint:fix",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "clean": "turbo run clean && rm -rf node_modules",
+    "db:migrate": "turbo run db:migrate --filter=@globetrotter/api",
+    "db:seed": "turbo run db:seed --filter=@globetrotter/api",
+    "db:studio": "turbo run db:studio --filter=@globetrotter/api",
+    "prepare": "husky install",
+    "typecheck": "turbo run typecheck"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "eslint": "^8.55.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.2.0",
+    "prettier": "^3.1.0",
+    "turbo": "^1.11.0",
+    "typescript": "^5.3.3"
+  },
+  "packageManager": "pnpm@8.11.0",
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=8.0.0"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md}": [
+      "prettier --write"
+    ]
+  }
+}
