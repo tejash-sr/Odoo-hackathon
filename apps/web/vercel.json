@@ -1,0 +1,4 @@
+{
+    "installCommand": "cd ../.. && pnpm install --prod=false",
+    "buildCommand": "prisma generate && next build"
+}

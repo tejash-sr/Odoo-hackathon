@@ -1,6 +1,0 @@
-{
-    "installCommand": "pnpm install --prod=false",
-    "buildCommand": "cd apps/web && pnpm exec prisma generate && pnpm exec next build",
-    "outputDirectory": "apps/web/.next",
-    "framework": "nextjs"
-}
