@@ -12,6 +12,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://globetrotter.vercel.app'),
   title: {
     default: 'GlobeTrotter - Your AI Travel Companion',
     template: '%s | GlobeTrotter',
