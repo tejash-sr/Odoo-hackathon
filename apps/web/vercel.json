@@ -1,4 +1,0 @@
-{
-    "installCommand": "cd ../.. && pnpm install --prod=false",
-    "buildCommand": "pnpm exec prisma generate && pnpm exec next build"
-}
