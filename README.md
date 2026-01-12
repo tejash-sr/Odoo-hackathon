@@ -2,6 +2,19 @@
 
 > **Full-Stack Travel Planning Platform** - AI-powered trip planning with real-time route navigation
 
+## 🎯 FOR JUDGES: Quick Links
+
+- **📊 [Hackathon Features Analysis](./HACKATHON_FEATURES_ANALYSIS.md)** - 11/13 features implemented (85%)
+- **🔑 [Demo Credentials](./DEMO_CREDENTIALS.md)** - Login information for testing
+- **✅ Score**: 11 out of 13 required features fully implemented
+
+**Quick Demo Login**:
+- Email: `demo@globetrotter.com`
+- Password: `Demo123!`
+- URL: http://localhost:3000 (after running `pnpm dev`)
+
+---
+
 ## ✨ Recent Updates
 
 - ✅ **Leaflet-based Route Planner**: Real-time route visualization with OSRM routing
