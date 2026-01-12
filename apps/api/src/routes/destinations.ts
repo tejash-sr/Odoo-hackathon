@@ -1,7 +1,7 @@
-import { Router } from 'express';
+import { Router, type Router as ExpressRouter } from 'express';
 import { optionalAuth, AuthRequest } from '../middleware/auth.js';
 
-const router = Router();
+const router: ExpressRouter = Router();
 
 // Mock destination data
 const destinations = [

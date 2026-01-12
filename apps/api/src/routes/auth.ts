@@ -1,4 +1,4 @@
-import { Router, Request, Response, NextFunction } from 'express';
+import { Router, type Router as ExpressRouter, Request, Response, NextFunction } from 'express';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { validationResult } from 'express-validator';
@@ -7,7 +7,7 @@ import { validateRegister, validateLogin } from '../middleware/validators.js';
 import { AppError } from '../middleware/errorHandler.js';
 import { authenticate, AuthRequest } from '../middleware/auth.js';
 
-const router = Router();
+const router: ExpressRouter = Router();
 
 // In-memory store (replace with database in production)
 const users = new Map<string, {

@@ -1,11 +1,11 @@
-import { Router, Response, NextFunction } from 'express';
+import { Router, type Router as ExpressRouter, Response, NextFunction } from 'express';
 import { validationResult } from 'express-validator';
 import { v4 as uuidv4 } from 'uuid';
 import { authenticate, AuthRequest } from '../middleware/auth.js';
 import { validateExpense, validatePagination } from '../middleware/validators.js';
 import { AppError } from '../middleware/errorHandler.js';
 
-const router = Router();
+const router: ExpressRouter = Router();
 
 // In-memory expense store
 const expenses = new Map<string, {

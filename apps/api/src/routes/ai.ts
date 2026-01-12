@@ -1,10 +1,10 @@
-import { Router } from 'express';
+import { Router, type Router as ExpressRouter } from 'express';
 import OpenAI from 'openai';
 import { authenticate, AuthRequest } from '../middleware/auth.js';
 import { AppError } from '../middleware/errorHandler.js';
 import NodeCache from 'node-cache';
 
-const router = Router();
+const router: ExpressRouter = Router();
 
 // Cache for AI responses (TTL: 1 hour)
 const cache = new NodeCache({ stdTTL: 3600 });

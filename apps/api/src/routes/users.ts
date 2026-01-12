@@ -1,8 +1,8 @@
-import { Router } from 'express';
+import { Router, type Router as ExpressRouter } from 'express';
 import { authenticate, AuthRequest } from '../middleware/auth.js';
 import { AppError } from '../middleware/errorHandler.js';
 
-const router = Router();
+const router: ExpressRouter = Router();
 
 // Mock user data
 const userProfiles = new Map<string, {
