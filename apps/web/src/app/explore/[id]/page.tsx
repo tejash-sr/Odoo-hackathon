@@ -171,73 +171,73 @@ export default function DestinationPage({ params }: { params: { id: string } }) 
       </div>
 
       {/* Main Content */}
-      <div className=\"mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8\">
-        <div className=\"grid gap-8 lg:grid-cols-3\">
+      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+        <div className="grid gap-8 lg:grid-cols-3">
           {/* Left Column - Details */}
-          <div className=\"lg:col-span-2 space-y-6\">
+          <div className="lg:col-span-2 space-y-6">
             {/* About */}
-            <div className=\"rounded-xl border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-800\">
-              <h2 className=\"mb-4 text-2xl font-bold text-slate-900 dark:text-white\">
+            <div className="rounded-xl border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-800">
+              <h2 className="mb-4 text-2xl font-bold text-slate-900 dark:text-white">
                 About {destination.name}
               </h2>
-              <p className=\"text-slate-600 dark:text-slate-400\">
+              <p className="text-slate-600 dark:text-slate-400">
                 {destination.description}
               </p>
             </div>
 
             {/* Highlights */}
-            <div className=\"rounded-xl border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-800\">
-              <h2 className=\"mb-4 text-2xl font-bold text-slate-900 dark:text-white\">
+            <div className="rounded-xl border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-800">
+              <h2 className="mb-4 text-2xl font-bold text-slate-900 dark:text-white">
                 Top Highlights
               </h2>
-              <div className=\"grid gap-3 sm:grid-cols-2\">
+              <div className="grid gap-3 sm:grid-cols-2">
                 {destination.highlights.map((highlight, index) => (
-                  <div key={index} className=\"flex items-start gap-3\">
-                    <div className=\"mt-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900\">
-                      <Check className=\"h-3 w-3 text-blue-600 dark:text-blue-400\" />
+                  <div key={index} className="flex items-start gap-3">
+                    <div className="mt-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900">
+                      <Check className="h-3 w-3 text-blue-600 dark:text-blue-400" />
                     </div>
-                    <span className=\"text-slate-700 dark:text-slate-300\">{highlight}</span>
+                    <span className="text-slate-700 dark:text-slate-300">{highlight}</span>
                   </div>
                 ))}
               </div>
             </div>
 
             {/* Quick Info */}
-            <div className=\"grid gap-4 sm:grid-cols-2\">
-              <div className=\"rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-800\">
-                <div className=\"mb-2 flex items-center gap-2 text-slate-600 dark:text-slate-400\">
-                  <Calendar className=\"h-5 w-5\" />
-                  <span className=\"font-medium\">Best Time to Visit</span>
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div className="rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-800">
+                <div className="mb-2 flex items-center gap-2 text-slate-600 dark:text-slate-400">
+                  <Calendar className="h-5 w-5" />
+                  <span className="font-medium">Best Time to Visit</span>
                 </div>
-                <p className=\"text-slate-900 dark:text-white\">{destination.bestTime}</p>
+                <p className="text-slate-900 dark:text-white">{destination.bestTime}</p>
               </div>
-              <div className=\"rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-800\">
-                <div className=\"mb-2 flex items-center gap-2 text-slate-600 dark:text-slate-400\">
-                  <Clock className=\"h-5 w-5\" />
-                  <span className=\"font-medium\">Recommended Duration</span>
+              <div className="rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-800">
+                <div className="mb-2 flex items-center gap-2 text-slate-600 dark:text-slate-400">
+                  <Clock className="h-5 w-5" />
+                  <span className="font-medium">Recommended Duration</span>
                 </div>
-                <p className=\"text-slate-900 dark:text-white\">{destination.duration}</p>
+                <p className="text-slate-900 dark:text-white">{destination.duration}</p>
               </div>
             </div>
           </div>
 
           {/* Right Column - Trip Planning */}
-          <div className=\"lg:col-span-1\">
-            <div className=\"sticky top-4 rounded-xl border border-slate-200 bg-white p-6 shadow-lg dark:border-slate-800 dark:bg-slate-800\">
-              <div className=\"mb-6 flex items-center gap-2\">
-                <Sparkles className=\"h-5 w-5 text-blue-600\" />
-                <h3 className=\"text-xl font-bold text-slate-900 dark:text-white\">
+          <div className="lg:col-span-1">
+            <div className="sticky top-4 rounded-xl border border-slate-200 bg-white p-6 shadow-lg dark:border-slate-800 dark:bg-slate-800">
+              <div className="mb-6 flex items-center gap-2">
+                <Sparkles className="h-5 w-5 text-blue-600" />
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white">
                   Plan Your Trip
                 </h3>
               </div>
 
-              <div className=\"space-y-6\">
+              <div className="space-y-6">
                 {/* Trip Type */}
                 <div>
-                  <label className=\"mb-3 block text-sm font-medium text-slate-700 dark:text-slate-300\">
+                  <label className="mb-3 block text-sm font-medium text-slate-700 dark:text-slate-300">
                     Trip Type
                   </label>
-                  <div className=\"grid grid-cols-2 gap-2\">
+                  <div className="grid grid-cols-2 gap-2">
                     {tripTypes.map((type) => (
                       <button
                         key={type.id}
@@ -248,10 +248,10 @@ export default function DestinationPage({ params }: { params: { id: string } }) 
                             : 'border-slate-200 hover:border-slate-300 dark:border-slate-700'
                         }`}
                       >
-                        <div className=\"mb-1 text-sm font-semibold text-slate-900 dark:text-white\">
+                        <div className="mb-1 text-sm font-semibold text-slate-900 dark:text-white">
                           {type.label}
                         </div>
-                        <div className=\"text-xs text-slate-600 dark:text-slate-400\">
+                        <div className="text-xs text-slate-600 dark:text-slate-400">
                           {type.description}
                         </div>
                       </button>
@@ -261,10 +261,10 @@ export default function DestinationPage({ params }: { params: { id: string } }) 
 
                 {/* Duration */}
                 <div>
-                  <label className=\"mb-3 block text-sm font-medium text-slate-700 dark:text-slate-300\">
+                  <label className="mb-3 block text-sm font-medium text-slate-700 dark:text-slate-300">
                     Duration
                   </label>
-                  <div className=\"grid grid-cols-2 gap-2\">
+                  <div className="grid grid-cols-2 gap-2">
                     {durations.map((duration) => (
                       <button
                         key={duration.id}
@@ -275,10 +275,10 @@ export default function DestinationPage({ params }: { params: { id: string } }) 
                             : 'border-slate-200 hover:border-slate-300 dark:border-slate-700'
                         }`}
                       >
-                        <div className=\"mb-1 text-sm font-semibold text-slate-900 dark:text-white\">
+                        <div className="mb-1 text-sm font-semibold text-slate-900 dark:text-white">
                           {duration.label}
                         </div>
-                        <div className=\"text-xs text-slate-600 dark:text-slate-400\">
+                        <div className="text-xs text-slate-600 dark:text-slate-400">
                           {duration.description}
                         </div>
                       </button>
@@ -288,10 +288,10 @@ export default function DestinationPage({ params }: { params: { id: string } }) 
 
                 {/* Budget */}
                 <div>
-                  <label className=\"mb-3 block text-sm font-medium text-slate-700 dark:text-slate-300\">
+                  <label className="mb-3 block text-sm font-medium text-slate-700 dark:text-slate-300">
                     Budget Range
                   </label>
-                  <div className=\"space-y-2\">
+                  <div className="space-y-2">
                     {budgetRanges.map((budget) => (
                       <button
                         key={budget.id}
@@ -302,11 +302,11 @@ export default function DestinationPage({ params }: { params: { id: string } }) 
                             : 'border-slate-200 hover:border-slate-300 dark:border-slate-700'
                         }`}
                       >
-                        <div className=\"flex items-center justify-between\">
-                          <div className=\"text-sm font-semibold text-slate-900 dark:text-white\">
+                        <div className="flex items-center justify-between">
+                          <div className="text-sm font-semibold text-slate-900 dark:text-white">
                             {budget.label}
                           </div>
-                          <div className=\"text-xs text-slate-600 dark:text-slate-400\">
+                          <div className="text-xs text-slate-600 dark:text-slate-400">
                             {budget.amount}
                           </div>
                         </div>
@@ -317,22 +317,22 @@ export default function DestinationPage({ params }: { params: { id: string } }) 
 
                 {/* Number of Travelers */}
                 <div>
-                  <label className=\"mb-3 block text-sm font-medium text-slate-700 dark:text-slate-300\">
+                  <label className="mb-3 block text-sm font-medium text-slate-700 dark:text-slate-300">
                     Number of Travelers
                   </label>
-                  <div className=\"flex items-center gap-3\">
+                  <div className="flex items-center gap-3">
                     <button
                       onClick={() => setTravelers(Math.max(1, travelers - 1))}
-                      className=\"flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 text-slate-900 hover:bg-slate-50 dark:border-slate-700 dark:text-white dark:hover:bg-slate-700\"
+                      className="flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 text-slate-900 hover:bg-slate-50 dark:border-slate-700 dark:text-white dark:hover:bg-slate-700"
                     >
                       -
                     </button>
-                    <div className=\"flex-1 text-center text-lg font-semibold text-slate-900 dark:text-white\">
+                    <div className="flex-1 text-center text-lg font-semibold text-slate-900 dark:text-white">
                       {travelers}
                     </div>
                     <button
                       onClick={() => setTravelers(travelers + 1)}
-                      className=\"flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 text-slate-900 hover:bg-slate-50 dark:border-slate-700 dark:text-white dark:hover:bg-slate-700\"
+                      className="flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 text-slate-900 hover:bg-slate-50 dark:border-slate-700 dark:text-white dark:hover:bg-slate-700"
                     >
                       +
                     </button>
@@ -350,11 +350,11 @@ export default function DestinationPage({ params }: { params: { id: string } }) 
                   }`}
                 >
                   {canContinue ? 'Continue Planning' : 'Select Options to Continue'}
-                  <ChevronRight className=\"h-5 w-5\" />
+                  <ChevronRight className="h-5 w-5" />
                 </button>
 
                 {!canContinue && (
-                  <p className=\"text-center text-xs text-slate-500 dark:text-slate-400\">
+                  <p className="text-center text-xs text-slate-500 dark:text-slate-400">
                     Please select trip type, duration, and budget
                   </p>
                 )}
