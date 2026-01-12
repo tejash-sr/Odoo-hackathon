@@ -1,6 +1,0 @@
-{
-    "buildCommand": "cd ../.. && pnpm install && pnpm build --filter=@globetrotter/web",
-    "installCommand": "cd ../.. && pnpm install",
-    "framework": "nextjs",
-    "outputDirectory": ".next"
-}
