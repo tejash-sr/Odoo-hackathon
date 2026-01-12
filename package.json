@@ -28,7 +28,6 @@
     "db:migrate": "turbo run db:migrate --filter=@globetrotter/api",
     "db:seed": "turbo run db:seed --filter=@globetrotter/api",
     "db:studio": "turbo run db:studio --filter=@globetrotter/api",
-    "prepare": "husky install",
     "typecheck": "turbo run typecheck"
   },
   "devDependencies": {
