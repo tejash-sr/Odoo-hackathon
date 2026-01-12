@@ -14,6 +14,7 @@ import {
   ArrowRight,
   AlertCircle,
   CheckCircle,
+  Zap,
 } from 'lucide-react';
 
 export default function LoginPage() {
@@ -29,19 +30,18 @@ export default function LoginPage() {
   const [errors, setErrors] = React.useState<{ email?: string; password?: string; general?: string }>({});
   const [success, setSuccess] = React.useState('');
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const performLogin = async (loginEmail: string, loginPassword: string) => {
     const newErrors: { email?: string; password?: string } = {};
 
-    if (!email) {
+    if (!loginEmail) {
       newErrors.email = 'Email is required';
-    } else if (!/\S+@\S+\.\S+/.test(email)) {
+    } else if (!/\S+@\S+\.\S+/.test(loginEmail)) {
       newErrors.email = 'Please enter a valid email';
     }
 
-    if (!password) {
+    if (!loginPassword) {
       newErrors.password = 'Password is required';
-    } else if (password.length < 6) {
+    } else if (loginPassword.length < 6) {
       newErrors.password = 'Password must be at least 6 characters';
     }
 
@@ -55,7 +55,7 @@ export default function LoginPage() {
         const response = await fetch('/api/auth/login', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, password, rememberMe }),
+          body: JSON.stringify({ email: loginEmail, password: loginPassword, rememberMe }),
         });
 
         const data = await response.json();
@@ -84,6 +84,18 @@ export default function LoginPage() {
     }
   };
 
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    await performLogin(email, password);
+  };
+
+  const handleDemoLogin = async () => {
+    setEmail('demo@globetrotter.com');
+    setPassword('Demo123!');
+    // Use the values directly instead of state
+    await performLogin('demo@globetrotter.com', 'Demo123!');
+  };
+
   return (
     <div className="flex min-h-screen">
       {/* Left Side - Form */}
@@ -103,7 +115,7 @@ export default function LoginPage() {
           </p>
 
           {/* Social Login */}
-          <div className="mt-8 grid grid-cols-2 gap-3">
+          <div className="mt-8 grid grid-cols-3 gap-3">
             <button className="flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-medium text-slate-700 shadow-sm transition-colors hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700">
               <Chrome className="h-5 w-5" />
               Google
@@ -111,6 +123,15 @@ export default function LoginPage() {
             <button className="flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-medium text-slate-700 shadow-sm transition-colors hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700">
               <Apple className="h-5 w-5" />
               Apple
+            </button>
+            <button
+              type="button"
+              onClick={handleDemoLogin}
+              disabled={isLoading}
+              className="flex items-center justify-center gap-2 rounded-xl border-2 border-amber-400 bg-gradient-to-r from-amber-50 to-yellow-50 px-4 py-3 text-sm font-medium text-amber-700 shadow-sm transition-all hover:shadow-md hover:from-amber-100 hover:to-yellow-100 disabled:opacity-70 dark:border-amber-600 dark:from-amber-900/20 dark:to-yellow-900/20 dark:text-amber-300 dark:hover:from-amber-900/40 dark:hover:to-yellow-900/40"
+            >
+              <Zap className="h-5 w-5" />
+              <span className="hidden sm:inline">Demo</span>
             </button>
           </div>
 

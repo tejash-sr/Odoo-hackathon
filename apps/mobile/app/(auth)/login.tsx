@@ -26,16 +26,16 @@ export default function LoginScreen() {
   const [isLoading, setIsLoading] = React.useState(false);
   const [errors, setErrors] = React.useState<{ email?: string; password?: string }>({});
 
-  const handleLogin = async () => {
+  const performLogin = async (loginEmail: string, loginPassword: string) => {
     const newErrors: { email?: string; password?: string } = {};
 
-    if (!email) {
+    if (!loginEmail) {
       newErrors.email = 'Email is required';
-    } else if (!/\S+@\S+\.\S+/.test(email)) {
+    } else if (!/\S+@\S+\.\S+/.test(loginEmail)) {
       newErrors.email = 'Please enter a valid email';
     }
 
-    if (!password) {
+    if (!loginPassword) {
       newErrors.password = 'Password is required';
     }
 
@@ -44,7 +44,7 @@ export default function LoginScreen() {
     if (Object.keys(newErrors).length === 0) {
       setIsLoading(true);
       try {
-        await login(email, password);
+        await login(loginEmail, loginPassword);
         router.replace('/(tabs)');
       } catch (error) {
         setErrors({ email: 'Invalid email or password' });
@@ -52,6 +52,16 @@ export default function LoginScreen() {
         setIsLoading(false);
       }
     }
+  };
+
+  const handleLogin = async () => {
+    await performLogin(email, password);
+  };
+
+  const handleDemoLogin = async () => {
+    setEmail('demo@globetrotter.com');
+    setPassword('Demo123!');
+    await performLogin('demo@globetrotter.com', 'Demo123!');
   };
 
   return (
@@ -94,6 +104,16 @@ export default function LoginScreen() {
               <Ionicons name="logo-apple" size={24} color={colors.text} />
               <Text style={[styles.socialBtnText, { color: colors.text }]}>
                 Apple
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[styles.socialBtn, { backgroundColor: '#FCD34D', borderWidth: 2, borderColor: '#FBBF24' }]}
+              onPress={handleDemoLogin}
+              disabled={isLoading}
+            >
+              <Ionicons name="flash" size={24} color="#B45309" />
+              <Text style={[styles.socialBtnText, { color: '#B45309', fontWeight: '600' }]}>
+                Demo
               </Text>
             </TouchableOpacity>
           </View>
