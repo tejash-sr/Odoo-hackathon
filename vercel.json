@@ -1,11 +1,6 @@
 {
-    "version": 2,
-    "builds": [
-        {
-            "src": "apps/web/package.json",
-            "use": "@vercel/next"
-        }
-    ],
     "installCommand": "pnpm install --prod=false",
-    "buildCommand": "pnpm build --filter=@globetrotter/web"
+    "buildCommand": "cd apps/web && pnpm exec prisma generate && pnpm exec next build",
+    "outputDirectory": "apps/web/.next",
+    "framework": "nextjs"
 }
