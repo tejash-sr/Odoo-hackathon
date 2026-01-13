@@ -59,11 +59,11 @@ export function DashboardSidebar() {
 
   return (
     <>
-      {/* Desktop Sidebar */}
+      {/* Desktop Sidebar - Only visible on large screens */}
       <aside
         className={cn(
-          'fixed inset-y-0 left-0 z-50 hidden border-r border-slate-200 bg-white transition-all duration-300 dark:border-slate-800 dark:bg-slate-900 lg:block',
-          collapsed ? 'w-20' : 'w-72'
+          'fixed inset-y-0 left-0 z-40 hidden border-r border-slate-200 bg-white transition-all duration-300 dark:border-slate-800 dark:bg-slate-900 lg:flex lg:flex-col',
+          collapsed ? 'lg:w-20' : 'lg:w-72'
         )}
       >
         <div className="flex h-full flex-col">
