@@ -2,10 +2,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import prisma from '@/lib/prisma';
-import { 
-  verifyPassword, 
-  generateTokens, 
-  setAuthCookies 
+import {
+  verifyPassword,
+  generateTokens,
+  setAuthCookies
 } from '@/lib/auth';
 
 const loginSchema = z.object({
@@ -17,15 +17,15 @@ const loginSchema = z.object({
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    
+
     // Validate input
     const result = loginSchema.safeParse(body);
     if (!result.success) {
       return NextResponse.json(
-        { 
-          success: false, 
+        {
+          success: false,
           error: 'Validation failed',
-          details: result.error.flatten().fieldErrors 
+          details: result.error.flatten().fieldErrors
         },
         { status: 400 }
       );
@@ -101,14 +101,19 @@ export async function POST(request: NextRequest) {
     };
 
     const response = NextResponse.json(responseData, { status: 200 });
-    
+
     // Set httpOnly cookies
     return setAuthCookies(response, accessToken, refreshToken);
 
   } catch (error) {
     console.error('Login error:', error);
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
     return NextResponse.json(
-      { success: false, error: 'An error occurred during login' },
+      {
+        success: false,
+        error: 'An error occurred during login',
+        debug: process.env.NODE_ENV !== 'production' ? errorMessage : undefined
+      },
       { status: 500 }
     );
   }
