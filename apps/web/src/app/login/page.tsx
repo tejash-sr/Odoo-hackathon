@@ -21,7 +21,7 @@ export default function LoginPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const redirectTo = searchParams.get('redirect') || '/trips';
-  
+
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [showPassword, setShowPassword] = React.useState(false);
@@ -50,7 +50,7 @@ export default function LoginPage() {
     if (Object.keys(newErrors).length === 0) {
       setIsLoading(true);
       setErrors({});
-      
+
       try {
         const response = await fetch('/api/auth/login', {
           method: 'POST',
@@ -67,16 +67,16 @@ export default function LoginPage() {
         }
 
         setSuccess('Login successful! Redirecting...');
-        
+
         // Trigger auth change event for Navigation component
         window.dispatchEvent(new Event('auth-change'));
-        
+
         // Small delay for user feedback
         setTimeout(() => {
           router.push(redirectTo);
           router.refresh();
         }, 500);
-        
+
       } catch (error) {
         setErrors({ general: 'Network error. Please check your connection.' });
         setIsLoading(false);
@@ -90,10 +90,10 @@ export default function LoginPage() {
   };
 
   const handleDemoLogin = async () => {
-    setEmail('demo@globetrotter.com');
-    setPassword('Demo123!');
+    setEmail('demo@globetrotter.app');
+    setPassword('demo123');
     // Use the values directly instead of state
-    await performLogin('demo@globetrotter.com', 'Demo123!');
+    await performLogin('demo@globetrotter.app', 'demo123');
   };
 
   return (
@@ -155,7 +155,7 @@ export default function LoginPage() {
                 <span>{success}</span>
               </div>
             )}
-            
+
             {/* Error Message */}
             {errors.general && (
               <div className="flex items-center gap-2 rounded-xl bg-red-50 p-4 text-red-700 dark:bg-red-900/30 dark:text-red-400">
@@ -163,7 +163,7 @@ export default function LoginPage() {
                 <span>{errors.general}</span>
               </div>
             )}
-            
+
             <div>
               <label
                 htmlFor="email"
@@ -178,11 +178,10 @@ export default function LoginPage() {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className={`block w-full rounded-xl border ${
-                    errors.email
+                  className={`block w-full rounded-xl border ${errors.email
                       ? 'border-red-500 focus:ring-red-500'
                       : 'border-slate-200 focus:ring-primary-500 dark:border-slate-700'
-                  } bg-white py-3 pl-10 pr-4 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 dark:bg-slate-800 dark:text-white`}
+                    } bg-white py-3 pl-10 pr-4 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 dark:bg-slate-800 dark:text-white`}
                   placeholder="you@example.com"
                 />
               </div>
@@ -205,11 +204,10 @@ export default function LoginPage() {
                   type={showPassword ? 'text' : 'password'}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className={`block w-full rounded-xl border ${
-                    errors.password
+                  className={`block w-full rounded-xl border ${errors.password
                       ? 'border-red-500 focus:ring-red-500'
                       : 'border-slate-200 focus:ring-primary-500 dark:border-slate-700'
-                  } bg-white py-3 pl-10 pr-12 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 dark:bg-slate-800 dark:text-white`}
+                    } bg-white py-3 pl-10 pr-12 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 dark:bg-slate-800 dark:text-white`}
                   placeholder="••••••••"
                 />
                 <button
